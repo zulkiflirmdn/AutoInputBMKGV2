@@ -6,21 +6,31 @@ import time
 from datetime import datetime
 from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception_type
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+from ..data.sandi import STATION_CODE, DEFAULT_OBSERVER, obs
 
 logger = logging.getLogger(__name__)
 
 class MetarProcessor:
     """Handles METAR code processing and form filling."""
     
-    def __init__(self, page):
+    def __init__(self, page, station_code=None, observer=None, obs_onduty=None):
         """Initialize the METAR processor.
-        
+
         Args:
             page: Playwright page object
+            station_code: ICAO/WMO station code (overrides STATION_CODE from config)
+            observer: Full observer name (overrides DEFAULT_OBSERVER from config)
+            obs_onduty: Observer short key from sandi.obs dict (e.g. 'titis')
         """
         self.page = page
         self.bmkg_url = "https://bmkgsatu.bmkg.go.id/meteorologi/metarspeci"
-        self.input_delay = 0.2  # Delay between form inputs in seconds
+        self.input_delay = 0.2
+        self.station_code = station_code or STATION_CODE
+        # Resolve observer: short key → full name, then fall back to passed name or default
+        if obs_onduty:
+            self.observer = obs.get(obs_onduty.lower(), DEFAULT_OBSERVER)
+        else:
+            self.observer = observer or DEFAULT_OBSERVER
 
     def wait_between_inputs(self):
         """Add a small delay between form inputs."""
@@ -67,13 +77,13 @@ class MetarProcessor:
     )
     def handle_station_selection(self):
         """Handle station code selection with retry logic."""
-        logger.info("Selecting station code...")
+        logger.info(f"Selecting station code: {self.station_code}")
         self.page.wait_for_load_state("networkidle")
         self.page.locator("#vs2__combobox").scroll_into_view_if_needed()
         self.wait_between_inputs()
         self.page.locator("#vs2__combobox").get_by_label("Loading...").click()
         self.wait_between_inputs()
-        self.page.get_by_role("option", name="97260").click()
+        self.page.get_by_role("option", name=self.station_code).click()
         logger.info("Station code selected successfully")
 
     @retry(
@@ -83,12 +93,12 @@ class MetarProcessor:
     )
     def handle_observer_selection(self):
         """Handle observer selection with retry logic."""
-        logger.info("Selecting observer...")
+        logger.info(f"Selecting observer: {self.observer}")
         self.page.wait_for_load_state("networkidle")
         self.wait_between_inputs()
         self.page.get_by_label("Loading...", exact=True).click()
         self.wait_between_inputs()
-        self.page.get_by_role("option", name="Zulkifli Ramadhan").click(timeout=10000)
+        self.page.get_by_role("option", name=self.observer).click(timeout=10000)
         logger.info("Observer selected successfully")
 
     def handle_date_selection(self, day: str):
@@ -107,7 +117,7 @@ class MetarProcessor:
         self.wait_between_inputs()
         
         if int(day) == current_day:
-            self.page.get_by_label(f"/{day}/{current_year} (Today)").click()
+            self.page.get_by_label(f"{current_month}/{day}/{current_year} (Today)").click()
         else:
             self.page.get_by_label(f"{current_month}/{day}/{current_year}").click()
         logger.info("Date selected successfully")

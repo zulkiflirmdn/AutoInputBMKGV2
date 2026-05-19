@@ -169,10 +169,11 @@ class PersistentWorkerThread(QThread):
                     # Make sure we're on the auto_input page for auto-send
                     self.browser_manager.navigate_to_page('auto_input')
                     from ..auto_sender import AutoSender
-                    # Create new instance each time
+                    # Create new instance each time, passing the data file path
                     self.auto_sender = AutoSender(
                         page=self.browser_manager.page,
-                        progress_callback=self.progress.emit
+                        progress_callback=self.progress.emit,
+                        file_path=args.get('file_path'),
                     )
                     self.auto_send_running = True
                     self.progress.emit("Auto-send started")
@@ -504,12 +505,17 @@ class ModernApp(QMainWindow):
     def start_auto_send(self):
         """Start the auto-send process."""
         try:
+            if not self.file_path:
+                QMessageBox.warning(self, "File Belum Dipilih",
+                                    "Pilih file Excel terlebih dahulu sebelum memulai Auto Send.")
+                return
+
             # Reset any existing auto-send state
             if hasattr(self.worker_thread, 'auto_sender'):
                 self.worker_thread.auto_sender = None
             self.worker_thread.auto_send_running = False
-            
-            self.worker_thread.send_command('start_auto_send')
+
+            self.worker_thread.send_command('start_auto_send', {'file_path': self.file_path})
             self.auto_send_status.setText("Auto Send: Aktif")
             self.start_auto_send_btn.setEnabled(False)
             self.stop_auto_send_btn.setEnabled(True)

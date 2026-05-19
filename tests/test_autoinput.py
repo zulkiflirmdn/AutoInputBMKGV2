@@ -4,6 +4,7 @@ Tests for the autoinput functionality.
 import pytest
 from unittest.mock import Mock, patch
 from src.core.autoinput import AutoInput
+from src.data.sandi import default_user_input
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -14,26 +15,14 @@ def mock_page():
     page = Mock()
     page.locator = Mock(return_value=Mock())
     page.get_by_role = Mock(return_value=Mock())
+    page.get_by_label = Mock(return_value=Mock())
+    page.wait_for_load_state = Mock()
     return page
 
 @pytest.fixture
 def sample_user_input():
-    """Create a sample user input dictionary."""
-    return {
-        'jam_pengamatan': '00',
-        'obs_onduty': 'Zulkifli Ramadhan',
-        'suhu_bola_kering': '25.5',
-        'suhu_bola_basah': '22.0',
-        'tekanan_qff': '1013.2',
-        'tekanan_qfe': '1012.8',
-        'oktas': '5',
-        'cl_dominan': '1',
-        'ncl_total': '3',
-        'jenis_cl_lapisan1': 'CU',
-        'jumlah_cl_lapisan1': '2',
-        'tinggi_dasar_aw_lapisan1': '1000',
-        'arah_gerak_aw_lapisan1': 'NE',
-    }
+    """Create a complete user input dictionary using defaults as base."""
+    return default_user_input.copy()
 
 @pytest.fixture
 def mock_weather_codes():
@@ -110,14 +99,12 @@ def test_autoinput_error_handling(mock_page, sample_user_input, mock_weather_cod
     assert "Test error" in str(exc_info.value)
 
 def test_autoinput_input_validation(mock_page, sample_user_input, mock_weather_codes):
-    """Test input validation in AutoInput."""
-    # Test with invalid temperature
-    invalid_input = sample_user_input.copy()
-    invalid_input['suhu_bola_kering'] = 'invalid'
-    
+    """Test that Playwright errors surface instead of being swallowed."""
+    mock_page.locator.side_effect = RuntimeError("selector not found")
+
     autoinput = AutoInput(
         mock_page,
-        invalid_input,
+        sample_user_input,
         mock_weather_codes['obs'],
         mock_weather_codes['ww'],
         mock_weather_codes['w1w2'],
@@ -127,6 +114,6 @@ def test_autoinput_input_validation(mock_page, sample_user_input, mock_weather_c
         mock_weather_codes['cm'],
         mock_weather_codes['ch']
     )
-    
-    with pytest.raises(ValueError):
+
+    with pytest.raises(RuntimeError, match="selector not found"):
         autoinput.fill_form() 

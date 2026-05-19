@@ -1,0 +1,350 @@
+{
+  "run_at": "2026-05-19T20:34:09.011061",
+  "total": 38,
+  "passed": 37,
+  "failed": 1,
+  "steps": [
+    {
+      "step": 1,
+      "label": "0. Navigate to Sinoptik",
+      "status": "FAIL",
+      "error": "Traceback (most recent call last):\n  File \"D:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\e2e_test.py\", line 52, in step\n    fn()\n  File \"D:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\e2e_test.py\", line 135, in nav\n    page.wait_for_load_state(\"networkidle\", timeout=30_000)\n  File \"d:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\venv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 9122, in wait_for_load_state\n    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))\n  File \"d:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\venv\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"d:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\venv\\Lib\\site-packages\\playwright\\_impl\\_page.py\", line 568, in wait_for_load_state\n    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"d:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\venv\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 243, in wait_for_load_state\n    return await self._wait_for_load_state_impl(state, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"d:\\AutoInput-BMKGsoftV2\\AutoInput-bmkgsoftv2\\venv\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 271, in _wait_for_load_state_impl\n    await waiter.result()\nplaywright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n",
+      "html": "e2e_results\\001_0._Navigate_to_Sinoptik_FAIL.html",
+      "screenshot": "e2e_results\\001_0._Navigate_to_Sinoptik_FAIL.png",
+      "captured_html": null
+    },
+    {
+      "step": 2,
+      "label": "1. Select station",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\002_1._Select_station_PASS.png",
+      "captured_html": "<div role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"6f472388-d1bd-4e32-a426-059228e4b3fa\" class=\"ant-select-selection ant-select-selection--single\"><div class=\"ant-select-selection__rendered\"><div unselectable=\"on\" class=\"ant-select-selection__placeholder\" style=\"display: none; user-select: none;\">Pilih atau ketik nama stasiun atau wmo id</div><div title=\"Stasiun Meteorologi Sultan Muhammad Kaharuddin (97260)\" class=\"ant-select-selection-selected-value\" style=\"display: block; opacity: 1;\"> Stasiun Meteorologi Sultan Muhammad Kaharuddin (97260) </div><div class=\"ant-select-search ant-select-search--inline\" style=\"display: none;\"><div class=\"ant-select-search__field__wrap\"><input autocomplete=\"off\" value=\"\" class=\"ant-select-search__field\" style=\"\"><span class=\"ant-select-search__field__mirror\">&nbsp;</span></div></div></div><span unselectable=\"on\" class=\"ant-select-arrow\" style=\"user-select: none;\"><i aria-label=\"icon: down\" class=\"anticon anticon-down ant-select-arrow-icon\"><svg viewBox=\"64 64 896 896\" data-icon=\"down\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\" focusable=\"false\" class=\"\"><path d=\"M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z\"></path></svg></i></span></div>"
+    },
+    {
+      "step": 3,
+      "label": "3. Select date (today: 2026-05-19)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\003_3._Select_date_(today:_2026-05-19)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 4,
+      "label": "3. Select date (yesterday: 2026-05-18)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\004_3._Select_date_(yesterday:_2026-05-18)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 5,
+      "label": "4. Select hour (12:00)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\005_4._Select_hour_(12:00)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 6,
+      "label": "5. Wind indicator (iw)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\006_5._Wind_indicator_(iw)_PASS.png",
+      "captured_html": "<div role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"5ea8759d-db11-4931-98c8-128e1a32f345\" class=\"ant-select-selection ant-select-selection--single\"><div class=\"ant-select-selection__rendered\"><div title=\"4 - wind speed from anemometer, kt\" class=\"ant-select-selection-selected-value\" style=\"display: block; opacity: 1;\"> 4 - wind speed from anemometer, kt </div><div class=\"ant-select-search ant-select-search--inline\" style=\"display: none;\"><div class=\"ant-select-search__field__wrap\"><input autocomplete=\"off\" value=\"\" class=\"ant-select-search__field\" style=\"\"><span class=\"ant-select-search__field__mirror\">&nbsp;</span></div></div></div><span unselectable=\"on\" class=\"ant-select-arrow\" style=\"user-select: none;\"><i aria-label=\"icon: down\" class=\"anticon anticon-down ant-select-arrow-icon\"><svg viewBox=\"64 64 896 896\" data-icon=\"down\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\" focusable=\"false\" class=\"\"><path d=\"M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z\"></path></svg></i></span></div>"
+    },
+    {
+      "step": 7,
+      "label": "6. Wind direction (degrees)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\007_6._Wind_direction_(degrees)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 8,
+      "label": "7. Wind speed (knots)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\008_7._Wind_speed_(knots)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 9,
+      "label": "8. Visibility",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\009_8._Visibility_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 10,
+      "label": "9. Present weather (ww)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\010_9._Present_weather_(ww)_PASS.png",
+      "captured_html": "<div role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"d4cf1761-47e7-4d3b-e164-201803f21315\" class=\"ant-select-selection ant-select-selection--single\"><div class=\"ant-select-selection__rendered\"><div title=\"02 - state of sky unchanged\" class=\"ant-select-selection-selected-value\" style=\"display: block; opacity: 1;\"> 02 - state of sky unchanged </div><div class=\"ant-select-search ant-select-search--inline\" style=\"display: none;\"><div class=\"ant-select-search__field__wrap\"><input autocomplete=\"off\" value=\"\" class=\"ant-select-search__field\" style=\"\"><span class=\"ant-select-search__field__mirror\">&nbsp;</span></div></div></div><span unselectable=\"on\" class=\"ant-select-arrow\" style=\"user-select: none;\"><i aria-label=\"icon: down\" class=\"anticon anticon-down ant-select-arrow-icon\"><svg viewBox=\"64 64 896 896\" data-icon=\"down\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\" focusable=\"false\" class=\"\"><path d=\"M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z\"></path></svg></i></span></div>"
+    },
+    {
+      "step": 11,
+      "label": "10. Past weather W1",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\011_10._Past_weather_W1_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 12,
+      "label": "11. Past weather W2",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\012_11._Past_weather_W2_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 13,
+      "label": "12a. Suhu Maksimum (jam 12)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\013_12a._Suhu_Maksimum_(jam_12)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 14,
+      "label": "12b. Hujan Ditakar (jam 12)",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\014_12b._Hujan_Ditakar_(jam_12)_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 15,
+      "label": "13. Tekanan QFF",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\015_13._Tekanan_QFF_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 16,
+      "label": "14. Tekanan QFE",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\016_14._Tekanan_QFE_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 17,
+      "label": "15. Suhu Bola Kering",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\017_15._Suhu_Bola_Kering_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 18,
+      "label": "16. Suhu Bola Basah",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\018_16._Suhu_Bola_Basah_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 19,
+      "label": "17. Total cloud oktas",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\019_17._Total_cloud_oktas_PASS.png",
+      "captured_html": "<div role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"4a816d98-8edb-457c-e6ac-23966614efd5\" class=\"ant-select-selection ant-select-selection--single\"><div class=\"ant-select-selection__rendered\"><div title=\"6 oktas\" class=\"ant-select-selection-selected-value\" style=\"display: block; opacity: 1;\"> 6 oktas </div><div class=\"ant-select-search ant-select-search--inline\" style=\"display: none;\"><div class=\"ant-select-search__field__wrap\"><input autocomplete=\"off\" value=\"\" class=\"ant-select-search__field\" style=\"\"><span class=\"ant-select-search__field__mirror\">&nbsp;</span></div></div></div><span unselectable=\"on\" class=\"ant-select-arrow\" style=\"user-select: none;\"><i aria-label=\"icon: down\" class=\"anticon anticon-down ant-select-arrow-icon\"><svg viewBox=\"64 64 896 896\" data-icon=\"down\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\" focusable=\"false\" class=\"\"><path d=\"M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z\"></path></svg></i></span></div>"
+    },
+    {
+      "step": 20,
+      "label": "18. CL dominant",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\020_18._CL_dominant_PASS.png",
+      "captured_html": "<div role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"838b0805-7ec8-4789-dce7-d36779f23424\" class=\"ant-select-selection ant-select-selection--single\"><div class=\"ant-select-selection__rendered\"><div title=\"1 - cumulus humilis atau fracto cumulus atao kedua-duanya\" class=\"ant-select-selection-selected-value\" style=\"display: block; opacity: 1;\"> 1 - cumulus humilis atau fracto cumulus atao kedua-duanya </div><div class=\"ant-select-search ant-select-search--inline\" style=\"display: none;\"><div class=\"ant-select-search__field__wrap\"><input autocomplete=\"off\" value=\"\" class=\"ant-select-search__field\" style=\"\"><span class=\"ant-select-search__field__mirror\">&nbsp;</span></div></div></div><span unselectable=\"on\" class=\"ant-select-arrow\" style=\"user-select: none;\"><i aria-label=\"icon: down\" class=\"anticon anticon-down ant-select-arrow-icon\"><svg viewBox=\"64 64 896 896\" data-icon=\"down\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\" focusable=\"false\" class=\"\"><path d=\"M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z\"></path></svg></i></span></div>"
+    },
+    {
+      "step": 21,
+      "label": "19. NCL total",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\021_19._NCL_total_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 22,
+      "label": "20. CL Layer 1 type",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\022_20._CL_Layer_1_type_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 23,
+      "label": "21. CL Layer 1 jumlah",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\023_21._CL_Layer_1_jumlah_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 24,
+      "label": "22. CL Layer 1 base height",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\024_22._CL_Layer_1_base_height_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 25,
+      "label": "23. CL Layer 1 direction",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\025_23._CL_Layer_1_direction_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 26,
+      "label": "24. CM (medium cloud) type",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\026_24._CM_(medium_cloud)_type_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 27,
+      "label": "25. NCM oktas",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\027_25._NCM_oktas_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 28,
+      "label": "26. CM layer type",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\028_26._CM_layer_type_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 29,
+      "label": "27. CM base height",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\029_27._CM_base_height_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 30,
+      "label": "28. CM direction",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\030_28._CM_direction_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 31,
+      "label": "29. CH (high cloud) type",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\031_29._CH_(high_cloud)_type_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 32,
+      "label": "30. NCH oktas",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\032_30._NCH_oktas_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 33,
+      "label": "31. CH layer type",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\033_31._CH_layer_type_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 34,
+      "label": "32. CH jumlah",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\034_32._CH_jumlah_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 35,
+      "label": "33. CH base height",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\035_33._CH_base_height_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 36,
+      "label": "34. CH direction",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\036_34._CH_direction_PASS.png",
+      "captured_html": null
+    },
+    {
+      "step": 37,
+      "label": "35. Land condition",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\037_35._Land_condition_PASS.png",
+      "captured_html": "<div role=\"combobox\" aria-autocomplete=\"list\" aria-haspopup=\"true\" aria-controls=\"dd883265-50e6-4dbd-bc31-52a84ca1a3a4\" class=\"ant-select-selection ant-select-selection--single\"><div class=\"ant-select-selection__rendered\"><div title=\"0 - Kering\" class=\"ant-select-selection-selected-value\" style=\"display: block; opacity: 1;\"> 0 - Kering </div><div class=\"ant-select-search ant-select-search--inline\" style=\"display: none;\"><div class=\"ant-select-search__field__wrap\"><input autocomplete=\"off\" value=\"\" class=\"ant-select-search__field\" style=\"\"><span class=\"ant-select-search__field__mirror\">&nbsp;</span></div></div></div><span unselectable=\"on\" class=\"ant-select-arrow\" style=\"user-select: none;\"><i aria-label=\"icon: down\" class=\"anticon anticon-down ant-select-arrow-icon\"><svg viewBox=\"64 64 896 896\" data-icon=\"down\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\" focusable=\"false\" class=\"\"><path d=\"M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z\"></path></svg></i></span></div>"
+    },
+    {
+      "step": 38,
+      "label": "36. Click 'Preview & Generate Sandi'",
+      "status": "PASS",
+      "error": null,
+      "html": null,
+      "screenshot": "e2e_results\\038_36._Click_'Preview_&_Generate_Sandi'_PASS.png",
+      "captured_html": null
+    }
+  ]
+}

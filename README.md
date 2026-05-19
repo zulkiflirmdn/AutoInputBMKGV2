@@ -1,115 +1,48 @@
 # AutoInput-BMKGsoftV2
 
-A modern automated data input application for BMKG Satu platform, built with PyQt6 and Playwright.
+AutoInput-BMKGsoftV2 automates meteorological data entry for the BMKG Satu portal.
+It uses a desktop UI and browser automation to fill the submission form with observation values.
 
-## Features
+## What it does
 
-- Modern PyQt6-based user interface with a clean, professional design
-- Automated data input for BMKG Satu platform
-- METAR code processing and submission
-- Browser automation using Playwright
-- Multi-threaded processing for responsive UI
-- Configurable logging system
-- Auto-sending capability for periodic data submission
-- Support for Excel/CSV file input
-- Customizable UI themes and settings
+- Opens the BMKG Satu input page and controls the browser automatically.
+- Fills observational fields such as wind, temperature, pressure, visibility, and clouds.
+- Supports METAR parsing to convert weather reports into form-ready values.
+- Provides an optional hourly auto-send workflow for repeated submissions.
 
-## Requirements
+## Why it exists
 
-- Python 3.9 or higher
-- PyQt6
-- Playwright
-- Other dependencies (see requirements.txt)
+Manual BMKG data entry is repetitive and prone to mistakes.
+This project reduces manual effort by automating form completion while preserving user control.
 
-## Installation
+## Quick start
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/AutoInput-BMKGsoftV2.git
-cd AutoInput-BMKGsoftV2
-```
-
-2. Create a virtual environment (recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
+1. Create and activate a Python virtual environment.
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-
-4. Install Playwright browsers:
+3. Install Playwright browsers:
 ```bash
 playwright install
 ```
-
-## Usage
-
-1. Run the application:
+4. Run the app:
 ```bash
-python -m src.ui.modern_app
+python run.py
 ```
 
-2. Select the input file (Excel/CSV format)
-3. Choose the observation hour
-4. Click "Open Browser" to start the browser session
-5. Click "Run Auto Input" to begin processing
+## Main components
+
+- `src/ui/modern_app.py` - PyQt6 GUI and workflow controls.
+- `src/core/autoinput.py` - Browser automation logic for form filling.
+- `src/core/metar_reader.py` - METAR parser for structured weather data.
+- `src/auto_sender.py` - Auto-send scheduler for hourly submissions.
+- `src/utils/logger.py` - Logging and diagnostics.
 
 ## Configuration
 
-The application can be configured through the `config/config.yaml` file, which includes settings for:
-
-- Browser behavior
-- UI customization
-- Logging
-- Automation parameters
-- Security settings
-- Monitoring options
-
-## Project Structure
-
-```
-AutoInput-BMKGsoftV2/
-├── src/
-│   ├── core/           # Core functionality
-│   ├── ui/             # User interface components
-│   ├── utils/          # Utility functions
-│   └── data/           # Data handling
-├── config/             # Configuration files
-├── logs/               # Log files
-├── tests/              # Test files
-└── requirements.txt    # Project dependencies
-```
-
-## Development
-
-To contribute to the project:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests:
-```bash
-pytest
-```
-5. Submit a pull request
-
-## Logging
-
-The application uses a comprehensive logging system with different log files:
-
-- `app.log`: General application logs
-- `browser.log`: Browser automation logs
-- `error.log`: Error-specific logs
-
-Logs are automatically rotated to prevent excessive disk usage.
-
-## Author
-
-- Zulkifli Ramadhan (zulkiflirmdn@gmail.com)
+Configure browser, automation, and logging settings in `config/config.yaml`.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+MIT License.

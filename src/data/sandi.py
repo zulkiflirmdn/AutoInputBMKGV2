@@ -2,6 +2,10 @@
 BMKG code mappings and default configurations.
 """
 
+# Station configuration — update these if the station changes
+STATION_CODE = "97260"
+DEFAULT_OBSERVER = "Zulkifli Ramadhan"
+
 # Observer mappings
 obs = {
     "zulkifli": "Zulkifli Ramadhan",
@@ -23,6 +27,7 @@ default_user_input = {
     'cuaca_pengamatan': 'MIST',
     'cuaca_w1': 'RAIN',
     'cuaca_w2': 'TS',
+    'cuaca_ix': '1',
     'tekanan_qff': '1002.3',
     'tekanan_qfe': '1001.8',
     'suhu_bola_kering': '25.3',
@@ -36,7 +41,7 @@ default_user_input = {
     'jenis_cl_lapisan1': 'SC',
     'jumlah_cl_lapisan1': '5',
     'tinggi_dasar_aw_lapisan1': '540',
-    'tinggi_puncak_aw_lapisan1': '',
+    'tinggi_puncak_aw_lapisan1': '0',
     'arah_gerak_aw_lapisan1': 'NORTH EAST',
     'sudut_elevasi_aw_lapisan1': '0',
     'jenis_cl_lapisan2': 'CU',

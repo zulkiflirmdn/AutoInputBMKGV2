@@ -2,7 +2,17 @@
   "permissions": {
     "allow": [
       "Bash(Get-ChildItem -Recurse -Path \"d:\\\\AutoInput-BMKGsoftV2\\\\AutoInput-bmkgsoftv2\" -Force)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Read(//d/AutoInput-BMKGsoftV2/**)",
+      "Bash(Get-Date -Format yyyyMMdd_HHmm)",
+      "Bash(powershell -Command \"Compress-Archive -Path 'AutoInput-bmkgsoftv2' -DestinationPath 'AutoInput-bmkgsoftv2_backup_$\\(Get-Date -Format yyyyMMdd_HHmm\\).zip' -Force\")",
+      "Bash(Get-ChildItem \"d:\\\\AutoInput-BMKGsoftV2\\\\*.zip\")",
+      "Bash(Select-Object Name, Length, LastWriteTime)",
+      "PowerShell(Get-ChildItem \"d:\\\\AutoInput-BMKGsoftV2\\\\\" | Where-Object {$_.Extension -eq \".zip\"})",
+      "PowerShell(cd \"d:\\\\AutoInput-BMKGsoftV2\\\\AutoInput-bmkgsoftv2\"; $env:PYTHONIOENCODING=\"utf-8\"; python e2e_test.py 2>&1)",
+      "PowerShell(cd \"d:\\\\AutoInput-BMKGsoftV2\\\\AutoInput-bmkgsoftv2\"; $env:PYTHONIOENCODING=\"utf-8\"; python probe_datepicker.py 2>&1)",
+      "PowerShell(cd \"d:\\\\AutoInput-BMKGsoftV2\\\\AutoInput-bmkgsoftv2\"; $env:PYTHONIOENCODING=\"utf-8\"; python probe_form_modes.py 2>&1)",
+      "PowerShell(cd \"d:\\\\AutoInput-BMKGsoftV2\\\\AutoInput-bmkgsoftv2\"; $env:PYTHONIOENCODING=\"utf-8\"; python probe_dropdowns.py 2>&1)"
     ]
   }
 }

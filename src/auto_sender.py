@@ -6,8 +6,8 @@ import re
 import logging
 from dataclasses import dataclass
 
-from .data.sandi import obs
-from .data import default_user_input
+from .data.sandi import obs, ww, w1w2, awan_lapisan, arah_angin, ci, cm, ch
+from .data import default_user_input, UserInputUpdater
 from .utils import get_logger
 from .exceptions import (
     AutoSenderError, PageLoadError, FormFillError,
@@ -31,20 +31,23 @@ class AutoSender:
         self,
         page: Optional[Page] = None,
         config: Optional[AutoSenderConfig] = None,
-        progress_callback: Optional[Callable[[str], None]] = None
+        progress_callback: Optional[Callable[[str], None]] = None,
+        file_path: Optional[str] = None,
     ):
         """
         Initialize AutoSender with configuration and optional page.
-        
+
         Args:
             page: Optional Playwright page instance
             config: Optional configuration object
             progress_callback: Optional callback for progress updates
+            file_path: Path to Excel/CSV file with hourly observation data
         """
         self.config = config or AutoSenderConfig()
         self.page = page
         self.state = AutoSenderState()
         self.progress_callback = progress_callback
+        self.file_path = file_path
         self.user_input = default_user_input.copy()
         logger.info("AutoSender initialized with configuration")
 
@@ -90,42 +93,38 @@ class AutoSender:
         exceptions=(FormFillError, NetworkError)
     )
     def fill_form(self, current_hour: int) -> bool:
-        """Fill the form with required data."""
+        """Fill the complete form using AutoInput with data for the current hour."""
+        from .core.autoinput import AutoInput
+
         try:
-            # Reload page
+            # Reload page before filling
             self.page.reload()
             self.page.wait_for_load_state("networkidle")
 
-            # Select station
-            logger.debug("Selecting station...")
-            self.page.locator("#select-station div").nth(1).click()
-            self.page.get_by_role("option", name=re.compile(r"^Stasiun")).click()
-            logger.debug("Station selected successfully")
+            # Start with defaults then override with file data for this hour
+            user_input = self.user_input.copy()
+            user_input['jam_pengamatan'] = str(current_hour)
 
-            # Select observer
-            logger.debug("Selecting observer...")
-            obs_onduty_value = obs.get(self.user_input['obs_onduty'].lower(), "Zulkifli Ramadhan")
-            self.page.locator("#select-observer div").nth(1).click()
-            self.page.get_by_role("option", name=obs_onduty_value).click()
-            logger.debug(f"Observer selected: {obs_onduty_value}")
+            if self.file_path:
+                try:
+                    updater = UserInputUpdater(user_input)
+                    user_input = updater.update_from_file(
+                        self.file_path, current_hour, "input_data"
+                    )
+                    logger.info(f"Loaded observation data from file for hour {current_hour:02d}:00")
+                except Exception as e:
+                    logger.warning(f"Could not load from file ({e}), using default values")
 
-            # Set date
-            logger.debug("Setting observation date...")
-            today = datetime.now(timezone.utc)
-            tgl_harini = f"/{today.month}/{today.year} (Today)"
-            self.page.locator("#input-datepicker__value_").click()
-            self.page.get_by_label(tgl_harini).click()
-            logger.debug(f"Date set: {tgl_harini}")
-
-            # Set hour
-            logger.debug(f"Setting observation hour: {current_hour}:00")
-            self.page.locator("#input-jam div").nth(1).click()
-            self.page.locator("#input-jam").get_by_role("textbox").fill(str(current_hour))
-            self.page.locator("#input-jam").get_by_role("textbox").press("Enter")
-            self.page.wait_for_load_state("networkidle")
-            logger.debug("Hour set successfully")
-
+            auto_input = AutoInput(
+                self.page, user_input,
+                obs, ww, w1w2, awan_lapisan, arah_angin, ci, cm, ch
+            )
+            # preview=False: AutoInput fills the form but does not click Preview.
+            # submit_form() handles the full View → Preview → OK → Send chain.
+            auto_input.fill_form(preview=False)
+            logger.info(f"Form filled for hour {current_hour:02d}:00")
             return True
+
         except Exception as e:
             self.state.error_tracker.log_error("form_fill", e)
             raise FormFillError(f"Error filling form: {str(e)}", e)
@@ -138,22 +137,53 @@ class AutoSender:
         exceptions=(FormSubmitError, NetworkError)
     )
     def submit_form(self) -> bool:
-        """Submit the form and send data."""
+        """Submit the form and send data.
+
+        Handles both modes:
+          - New observation  → 'Preview & Generate Sandi' → 'Send'
+          - Edit existing    → 'Preview & Generate Sandi' → 'Send & Update'
+        """
         try:
             logger.info("Starting data submission process...")
-            self.page.get_by_role("button", name="View").click()
-            time.sleep(0.5)
-            self.page.get_by_role("button", name="Preview").click()
-            time.sleep(0.5)
+
+            # Generate the SYNOP code / preview
+            preview_btn = self.page.get_by_role("button", name="Preview & Generate Sandi")
+            preview_btn.wait_for(state="visible", timeout=10000)
+            preview_btn.click()
             time.sleep(2)
-            self.page.get_by_role("button", name="OK").click()
-            time.sleep(0.5)
-            self.page.get_by_role("button", name="Send").click()
-            time.sleep(0.5)
-            self.page.get_by_role("button", name="Send to INASwitching").click()
-            time.sleep(0.5)
-            self.page.get_by_role("button", name="OK").click()
-            logger.info("Data sent successfully!")
+
+            # Dismiss any SweetAlert2 or confirmation modal
+            swal = self.page.locator(".swal2-popup")
+            if swal.count() > 0 and swal.first.is_visible():
+                confirm = self.page.locator(".swal2-confirm")
+                if confirm.count() > 0:
+                    confirm.first.click()
+                    time.sleep(0.5)
+
+            # Detect mode: prefer "Send & Update" (edit), fall back to "Send" (new)
+            send_update = self.page.get_by_role("button", name="Send & Update")
+            send_only   = self.page.get_by_role("button", name="Send")
+
+            if send_update.count() > 0 and send_update.first.is_visible():
+                logger.info("Edit mode detected — clicking 'Send & Update'")
+                send_update.first.click()
+            elif send_only.count() > 0 and send_only.first.is_visible():
+                logger.info("New mode detected — clicking 'Send'")
+                send_only.first.click()
+            else:
+                raise FormSubmitError("Neither 'Send' nor 'Send & Update' button found after preview.")
+
+            time.sleep(1)
+
+            # Dismiss post-send confirmation if it appears
+            swal2 = self.page.locator(".swal2-popup")
+            if swal2.count() > 0 and swal2.first.is_visible():
+                confirm2 = self.page.locator(".swal2-confirm")
+                if confirm2.count() > 0:
+                    confirm2.first.click()
+                    time.sleep(0.5)
+
+            logger.info("Data submitted successfully!")
             return True
         except Exception as e:
             self.state.error_tracker.log_error("form_submit", e)
