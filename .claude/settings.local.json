@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse -Path \"d:\\\\AutoInput-BMKGsoftV2\\\\AutoInput-bmkgsoftv2\" -Force)",
+      "Bash(Select-Object FullName)"
+    ]
+  }
+}

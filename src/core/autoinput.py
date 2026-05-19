@@ -40,18 +40,12 @@ class AutoInput:
         page.get_by_role("option", name=jenis_cl_lap2_value).click()
 
         # 27 Jumlah CL Lapisan 2
-        # page.locator("div:nth-child(3) > div:nth-child(3) > .ant-select").first.press("Tab")
-        page.locator("div:nth-child(3) > div:nth-child(4) > .ant-select").first.press("ArrowDown")
-        page.locator("div:nth-child(3) > div:nth-child(4) > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field").first.fill(
+        page.locator(
+            "div:nth-child(3) > div:nth-child(4) > .ant-select > .ant-select-selection > .ant-select-selection__rendered").first.click()
+        page.locator(
+            "div:nth-child(3) > div:nth-child(4) > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field").first.fill(
             self.user_input['jumlah_cl_lapisan2'])
-        page.locator("div:nth-child(3) > div:nth-child(4) > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field").first.press("Enter")
-
-        # page.locator(
-        #     "div:nth-child(3) > div:nth-child(4) > .ant-select > .ant-select-selection > .ant-select-selection__rendered").first.click()
-        # page.locator(
-        #     "div:nth-child(3) > div:nth-child(4) > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field").first.fill(
-        #     self.user_input['jumlah_cl_lapisan2'])
-        # page.get_by_role("option", name="oktas").click()
+        page.get_by_role("option", name="oktas").click()
 
         # 28 Tinggi Dasar Awan Lapisan 2
         page.locator("#cloud_low_base_2").click()
@@ -62,8 +56,10 @@ class AutoInput:
         page.locator(
             "div:nth-child(3) > div:nth-child(7) > .ant-select > .ant-select-selection > .ant-select-selection__rendered").click()
         page.locator(
-            "div:nth-child(3) > div:nth-child(7) > .ant-select-selection__rendered > .ant-select-search__field").fill(
-            arah_gerak_aw_lap2_value)
+            "div:nth-child(3) > div:nth-child(7) > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field").fill(arah_gerak_aw_lap2_value)
+        page.locator(
+            "div:nth-child(3) > div:nth-child(7) > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field").press(
+            "Enter")
 
     def fill_form(self):
         """Mengisi seluruh form berdasarkan input pengguna, termasuk logika pengisian berdasarkan jam pengamatan."""
